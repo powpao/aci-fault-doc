@@ -67,7 +67,7 @@ def printFaultSummary(faults):
     print("FAULT SUMMARY (grouped / sorted by # of occurrences)")
     print("+" * 80)
     print("")
-    for k, v in sorted(faults.iteritems(), key=lambda (k,v): (v['occurrences'],k), reverse=True):
+    for k, v in sorted(faults.iteritems(), key=map(lambda k,v: (v['occurrences'],k)), reverse=True):
         log = "FAULT: " + k
         if 'url' in v['documentation']:
             log += ", NAME: " + ' '.join(v['documentation']['Fault Name']).rstrip('\n').replace('\n', '\n      ')
@@ -80,7 +80,7 @@ def printFaultDocumentation(faults, documentation=False):
     print("FAULT DOCUMENTATION (grouped / sorted by # of occurrences)")
     print("+" * 80)
     print("")
-    for k, v in sorted(faults.iteritems(), key=lambda (k,v): (v['occurrences'],k), reverse=True):
+    for k, v in sorted(faults.iteritems(), key=map(lambda k,v: (v['occurrences'],k)), reverse=True):
         print("FAULT: %s - %d occurrences" % (k, v['occurrences']))
         if documentation:
             if 'url' in v['documentation']:
