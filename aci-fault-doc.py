@@ -64,42 +64,42 @@ def getFaultDocumentation(session, apicUrl, faults):
     return faults
 
 def printFaultSummary(faults):
-    print "FAULT SUMMARY (grouped / sorted by # of occurrences)"
-    print "+" * 80
-    print
+    print("FAULT SUMMARY (grouped / sorted by # of occurrences)")
+    print("+" * 80)
+    print("")
     for k, v in sorted(faults.iteritems(), key=lambda (k,v): (v['occurrences'],k), reverse=True):
         log = "FAULT: " + k
         if 'url' in v['documentation']:
             log += ", NAME: " + ' '.join(v['documentation']['Fault Name']).rstrip('\n').replace('\n', '\n      ')
-        print log + ", occurred: " + str(v['occurrences'])
-    print
-    print "+" * 80
-    print
+        print(log + ", occurred: " + str(v['occurrences']))
+    print("")
+    print("+" * 80)
+    print("")
 
 def printFaultDocumentation(faults, documentation=False):
-    print "FAULT DOCUMENTATION (grouped / sorted by # of occurrences)"
-    print "+" * 80
-    print
+    print("FAULT DOCUMENTATION (grouped / sorted by # of occurrences)")
+    print("+" * 80)
+    print("")
     for k, v in sorted(faults.iteritems(), key=lambda (k,v): (v['occurrences'],k), reverse=True):
-        print "FAULT: %s - %d occurrences" % (k, v['occurrences'])
+        print("FAULT: %s - %d occurrences" % (k, v['occurrences']))
         if documentation:
             if 'url' in v['documentation']:
                 for key in ['Fault Name', 'Message', 'Severity', 'Type', 'Cause', 'Explanation', 'Recommended Action']:
                     if len(v['documentation'][key]) > 0:
                         value = ' '.join(v['documentation'][key]).rstrip('\n').replace('\n', '\n      ')
-                        print "    %s: %s" % (key, value)
+                        print("    %s: %s" % (key, value))
             else:
-                print "    DOCUMENTATION NOT AVAILABLE"
-        print
-        print "    Instances (first 10):"
+                print("    DOCUMENTATION NOT AVAILABLE")
+        print("")
+        print("    Instances (first 10):")
         for instance in sorted(v['instances'])[:10]:
-            print "        %s %s" % (instance['severity'], instance['dn'])
+            print("        %s %s" % (instance['severity'], instance['dn']))
             if instance['descr'] != "":
-                print "            %s" % instance['descr']
-        print
-        print "-" * 80
-        print
-    print "+" * 80
+                print("            %s" % instance['descr'])
+        print("")
+        print("-" * 80)
+        print("")
+    print("+" * 80)
 
 def main(apicUrl=None, name=None, pwd=None, documentation=False, apic_faults=None):
     faults = {}
